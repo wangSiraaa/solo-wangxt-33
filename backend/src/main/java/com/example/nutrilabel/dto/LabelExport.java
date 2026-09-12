@@ -37,9 +37,18 @@ public record LabelExport(
             List<String> missingIngredients,
             /** Unrounded recipe total, in the nutrient's storage unit. */
             BigDecimal totalUnrounded,
+            /** Rule parameters actually applied to produce the displays below. */
+            RuleParams rule,
             ColumnBasis per100g,
             ColumnBasis perServing,
             List<ContributionBasis> contributions) {
+    }
+
+    public record RuleParams(
+            String displayUnit,
+            BigDecimal roundingIncrement,
+            BigDecimal zeroThreshold,
+            BigDecimal traceThreshold) {
     }
 
     public record ColumnBasis(
@@ -81,6 +90,8 @@ public record LabelExport(
                 n.dataComplete(),
                 n.missingIngredients(),
                 n.totalUnrounded(),
+                new RuleParams(n.rule().displayUnit(), n.rule().roundingIncrement(),
+                        n.rule().zeroThreshold(), n.rule().traceThreshold()),
                 new ColumnBasis(n.per100g().unrounded(), n.per100g().rounded(),
                         n.per100g().display(), n.per100g().state().name()),
                 new ColumnBasis(n.perServing().unrounded(), n.perServing().rounded(),

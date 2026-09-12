@@ -44,6 +44,11 @@
                 每 100 g 未舍入：{{ n.per100g.unrounded }} → 显示 {{ n.per100g.display }}
                 ｜ 每份未舍入：{{ n.perServing.unrounded }} → 显示 {{ n.perServing.display }}
               </div>
+              <div v-if="n.rule">
+                规则参数：修约间隔 {{ n.rule.roundingIncrement }} {{ n.displayUnit }}
+                ｜ 零阈值 {{ n.rule.zeroThreshold }}
+                <template v-if="n.rule.traceThreshold != null">｜ 微量阈值 {{ n.rule.traceThreshold }}</template>
+              </div>
               <div v-if="!n.dataComplete" style="color: var(--gap)">
                 缺口原料：{{ n.missingIngredients.join('、') }}（未知值未按零计入）
               </div>

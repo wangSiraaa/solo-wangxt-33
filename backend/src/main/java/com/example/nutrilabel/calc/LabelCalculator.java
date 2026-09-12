@@ -87,6 +87,7 @@ public final class LabelCalculator {
                     nutrient.name(),
                     rule.displayUnit(),
                     acc.complete(),
+                    rule,
                     acc.total(),
                     toColumn(per100, rule, acc.complete()),
                     toColumn(perServing, rule, acc.complete()),
